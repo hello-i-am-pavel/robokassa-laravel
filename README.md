@@ -1,16 +1,19 @@
 ![Robokassa](.github/icon-logo-white.svg)
 
-# Robokassa PHP SDK for Laravel
+# Robokassa SDK (PHP + Laravel) 
 
-## Install
+SDK для интеграции с платежной системой **Robokassa** в PHP с использованием Laravel.  
+Позволяет отправлять платежные запросы, получать статус оплаты и список доступных методов оплаты.
+
+## 📦 Установка
 
 ```
 
 composer require hello-i-am-pavel/robokassa-laravel
 
 ```
-Define robokassa credentials.
-Add to <b>.env</b>
+
+Добавьте авторизационные данные в `.env`
 
 ```
 ROBOKASSA_TEST=false
@@ -19,28 +22,17 @@ ROBOKASSA_PASSWORD_1=topsecretpass1
 ROBOKASSA_PASSWORD_2=topsecretpass2
 ```
 
-Publish config
+Экспорт конфигурационных файлов
 
 ```shell
 php artisan vendor:publish --provider "Hiap\Robokassa\ServiceProvider\RobokassaServiceProvider"
 ```
 
-Simple merchant request
+## 🚀 Использование
 
-```php
-use \Hiap\Robokassa\Factory\RobokassaFactory;
-use \Hiap\Robokassa\Request\Merchant\Dto\MerchantRequestDto;
+Вы можете использовать класс Robokassa в любом месте вашего приложения, например, в контроллере
 
-$robokassa = RobokassaFactory::build();
-$response = $robokassa->request->sendMerchantRequest(new MerchantRequestDto(
-    300,
-    'my product'
-))
-
-dump($response);
-```
-
-You can check use DI and check income sign
+Пример проверки подписи входящего запроса:
 
 ```php
 <?php
@@ -67,3 +59,44 @@ class SomeController extends Controller
     }
 }
 ```
+
+Отправка платежного запроса:
+
+```php
+use \Hiap\Robokassa\Factory\RobokassaFactory;
+use \Hiap\Robokassa\Request\Merchant\Dto\MerchantRequestDto;
+
+$robokassa = RobokassaFactory::build();
+$response = $robokassa->request->sendMerchantRequest(new MerchantRequestDto(
+    300,
+    'my product'
+))
+
+dump($response);
+
+```
+Проверка статуса:
+
+```php
+use \Hiap\Robokassa\Factory\RobokassaFactory;
+
+$robokassa = RobokassaFactory::build();
+$response = $robokassa->request->opState(123456);
+
+dump($response);
+```
+
+Получение доступных методов оплаты:
+
+```php
+use \Hiap\Robokassa\Factory\RobokassaFactory;
+
+$robokassa = RobokassaFactory::build();
+$response = $robokassa->request->getPaymentMethods();
+
+dump($response);
+```
+
+## 📌 Дополнительно
+- SDK активно развивается, в будущем **будут добавлены новые методы**.
+- Официальная документация Robokassa: [https://docs.robokassa.ru/](https://docs.robokassa.ru/).
