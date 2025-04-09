@@ -1,0 +1,30 @@
+{
+  "name": "hello-i-am-pavel/robokassa-laravel",
+  "description": "Robokassa integration for Laravel",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Voronin Pavel",
+      "email": "p.voronin97@gmail.com"
+    }
+  ],
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Hiap\\Robokassa\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Hiap\\Robokassa\\ServiceProvider\\RobokassaServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^12.0",
+    "guzzlehttp/guzzle": "^7.9"
+  }
+}
