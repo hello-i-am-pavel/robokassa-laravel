@@ -24,11 +24,7 @@ class Robokassa
      */
     public function __construct(protected Config $config)
     {
-        $this->request = new RequestFacade(
-            $config,
-            new Client()
-        );
-
+        $this->request = new RequestFacade($config, new Client());
         $this->signature = new SignatureFacade($config);
     }
 }
